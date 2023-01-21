@@ -132,12 +132,12 @@ const MainContainer: React.FC = (): JSX.Element => {
             />
           </div>
           <div>
-            <button onClick={updatePasswordCombinations}>Click Me</button>
+            <button onClick={updatePasswordCombinations}>Generate Password</button>
           </div>
         </form>
         <div className="password-input">
           <input type="text" value={password} readOnly></input>
-          <button onClick={handleCopyClick}>
+          <button onClick={handleCopyClick} disabled={password.length ? false : true}>
             <i className="fa-regular fa-copy"></i>
           </button>
           <ToastContainer position="top-center" theme="dark" hideProgressBar autoClose={2000} />
