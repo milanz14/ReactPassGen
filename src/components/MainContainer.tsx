@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactEventHandler, useEffect, useState } from "react";
 
 import Button from "./Button";
 
@@ -21,17 +21,80 @@ const MainContainer: React.FC = (): JSX.Element => {
   const [password, setPassword] = useState<string>("");
   const [passwordOptions, setPasswordOptions] = useState<PasswordOptions>(INIT_OPTIONS);
   const [combinations, setCombinations] = useState<string[]>([]);
+  const [combinationString, setCombinationString] = useState<string>("");
 
-  const handleGenerationClick = () => {
+  useEffect(() => {
+    updatePasswordCombinations();
+  }, [passwordOptions]);
+
+  const updatePasswordCombinations = (): void => {
+    setCombinations([]);
     const lower = "abcdefghijklmnopqrstuvwxyz";
     const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const numbers = "0123456789";
-    const symbols = '`!@#$%^&*()_+{}[]:"\\<>?/|';
+    const symbols = '`~!@#$%^&*()_+-={}[]\\|:";<>?,./';
+
+    if (passwordOptions.hasLowerCase) {
+      setCombinations([...combinations, ...lower]);
+    }
+    if (passwordOptions.hasLowerCase) {
+      setCombinations([...combinations, ...upper]);
+    }
+    if (passwordOptions.hasNumbers) {
+      setCombinations([...combinations, ...numbers]);
+    }
+    if (passwordOptions.hasSymbols) {
+      setCombinations([...combinations, ...symbols]);
+    }
+  };
+
+  const handleCheckedChange = (e) => {
+    const { name } = e.target;
+    setPasswordOptions((passwordOptions) => ({
+      ...passwordOptions,
+      [name]: true,
+    }));
   };
 
   return (
     <div className="main-container">
-      <Button text="test" onClick={handleGenerationClick} />
+      <label>
+        <input
+          type="checkbox"
+          checked={passwordOptions.hasLowerCase}
+          onChange={handleCheckedChange}
+          name="hasLowerCase"
+        />
+        Lowercase letters
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={passwordOptions.hasUpperCase}
+          onChange={handleCheckedChange}
+          name="hasUpperCase"
+        />
+        Uppercase letters
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={passwordOptions.hasNumbers}
+          onChange={handleCheckedChange}
+          name="hasNumbers"
+        />
+        Numbers
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={passwordOptions.hasSymbols}
+          onChange={handleCheckedChange}
+          name="hasSymbols"
+        />
+        Symbols
+      </label>
+      <button onClick={() => console.log(combinations)}>Click Me</button>
     </div>
   );
 };
