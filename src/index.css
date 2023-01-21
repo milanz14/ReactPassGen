@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
+
 body {
+  font-family: "Ubuntu Mono", monospace;
   background-image: linear-gradient(
     68.4deg,
     rgba(99, 251, 215, 1) -0.4%,
@@ -6,6 +9,9 @@ body {
   );
   background-repeat: no-repeat;
   height: 100%;
-  margin: 0;
   background-attachment: fixed;
+}
+
+button {
+  font-family: "Ubuntu Mono", monospace;
 }
