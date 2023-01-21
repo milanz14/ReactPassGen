@@ -1,6 +1,10 @@
 // React imports
 import React, { useEffect, useState } from "react";
 
+// npm packages
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // components
 import Button from "./Button";
 import Checkbox from "./Checkbox";
@@ -24,6 +28,8 @@ const MainContainer: React.FC = (): JSX.Element => {
     hasNumbers: false,
     hasSymbols: false,
   };
+
+  const notification = () => toast.success("Copied to clipboard!");
 
   const [passwordOptions, setPasswordOptions] = useState<PasswordOptions>(INIT_OPTIONS);
   const [password, setPassword] = useState<string>("");
@@ -72,6 +78,7 @@ const MainContainer: React.FC = (): JSX.Element => {
   };
 
   const handleCopyClick = () => {
+    notification();
     navigator.clipboard.writeText(password);
   };
 
@@ -133,6 +140,7 @@ const MainContainer: React.FC = (): JSX.Element => {
           <button onClick={handleCopyClick}>
             <i className="fa-regular fa-copy"></i>
           </button>
+          <ToastContainer position="top-center" theme="dark" hideProgressBar autoClose={2000} />
         </div>
       </div>
     </div>
