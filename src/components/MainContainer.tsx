@@ -2,25 +2,31 @@ import React, { useState } from "react";
 
 import Button from "./Button";
 
+interface PasswordOptions {
+  hasLowerCase: boolean;
+  hasUpperCase: boolean;
+  hasNumbers: boolean;
+  hasSymbols: boolean;
+}
+
 const MainContainer: React.FC = (): JSX.Element => {
+  const INIT_OPTIONS: PasswordOptions = {
+    hasLowerCase: false,
+    hasUpperCase: false,
+    hasNumbers: false,
+    hasSymbols: false,
+  };
+
   const [length, setLength] = useState<number>(12);
   const [password, setPassword] = useState<string>("");
-  const [hasLowerCase, setHasLowerCase] = useState<boolean>(false);
-  const [hasUpperCase, setHasUpperCase] = useState<boolean>(false);
-  const [hasNumbers, setHasNumbers] = useState<boolean>(false);
-  const [hasSymbols, setHasSymbols] = useState<boolean>(false);
+  const [passwordOptions, setPasswordOptions] = useState<PasswordOptions>(INIT_OPTIONS);
+  const [combinations, setCombinations] = useState<string[]>([]);
 
   const handleGenerationClick = () => {
     const lower = "abcdefghijklmnopqrstuvwxyz";
     const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const numbers = "0123456789";
     const symbols = '`!@#$%^&*()_+{}[]:"\\<>?/|';
-
-    let combinations = [];
-    if (hasLowerCase) combinations.push(lower);
-    if (hasUpperCase) combinations.push(upper);
-    if (hasNumbers) combinations.push(numbers);
-    if (hasSymbols) combinations.push(symbols);
   };
 
   return (
