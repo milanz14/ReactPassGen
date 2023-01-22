@@ -1,0 +1,81 @@
+.main-container {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.main-container h1 {
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.container {
+  display: block;
+  text-align: center;
+  position: relative;
+  padding: 45px;
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.form {
+  display: inline-block;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: left;
+}
+
+.form div button {
+  margin-top: 15px;
+}
+
+.password-input {
+  padding-top: 2rem;
+}
+
+.password-input input {
+  height: 35px;
+  border-radius: 4px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.inputdiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form div {
+  margin-bottom: 5px;
+}
+
+button {
+  border: none;
+  padding: 0.2rem 0.7rem;
+}
+
+textarea {
+  box-sizing: border-box;
+  min-width: 100%;
+  margin-bottom: 2em;
+  resize: none;
+}
+
+label {
+  margin-right: 10px;
+}
