@@ -1,5 +1,5 @@
 // React imports
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // npm packages
 import { ToastContainer, toast } from "react-toastify";
@@ -30,17 +30,11 @@ const MainContainer: React.FC = (): JSX.Element => {
   };
 
   const copyNotification = () => toast.success("Copied to clipboard!");
+  const validNotification = () => toast.success("Password Generated :)");
   const invalidNotification = () => toast.error("You must select at least one password option");
 
   const [passwordOptions, setPasswordOptions] = useState<PasswordOptions>(INIT_OPTIONS);
   const [password, setPassword] = useState<string>("");
-
-  const updatePasswordCombinations = (): void => {
-    const lower = "abcdefghijklmnopqrstuvwxyz";
-    const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const numbers = "0123456789";
-    const symbols = '`~!@#$%^&*()_+-={}[]\\|:";<>?,./';
-  };
 
   const handleLowerCaseChange = (): void => {
     setPasswordOptions({
@@ -85,14 +79,48 @@ const MainContainer: React.FC = (): JSX.Element => {
 
   const handleGeneratePassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const validOptions = Object.values(passwordOptions).every((value) => value === true);
-    if (!validOptions) {
-      invalidNotification();
+    setPassword("");
+    const validOptions = Object.values(passwordOptions).some((value) => value === true);
+    if (validOptions) {
+      validNotification();
+    } else {
+      return invalidNotification();
     }
+
+    const lower = "abcdefghijklmnopqrstuvwxyz";
+    const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numbers = "0123456789";
+    const symbols = '`~!@#$%^&*()_+-={}[]\\|:";<>?,./';
+    let combinations = "";
+    let placeHolderString = "";
+
+    if (passwordOptions.hasLowerCase) {
+      combinations += lower;
+    }
+
+    if (passwordOptions.hasUpperCase) {
+      combinations += upper;
+    }
+
+    if (passwordOptions.hasNumbers) {
+      combinations += numbers;
+    }
+
+    if (passwordOptions.hasSymbols) {
+      combinations += symbols;
+    }
+
+    for (let i = 0; i < passwordOptions.length; i++) {
+      let randomLetterInCombinations =
+        combinations[Math.floor(Math.random() * combinations.length)];
+      placeHolderString += randomLetterInCombinations;
+    }
+    setPassword(placeHolderString);
   };
 
   return (
     <div className="main-container">
+      <h1>React PassGen</h1>
       <div className="container">
         <form className="form" onSubmit={handleGeneratePassword}>
           <div>
@@ -139,13 +167,13 @@ const MainContainer: React.FC = (): JSX.Element => {
             />
           </div>
           <div>
-            <button type="submit">Generate Password</button>
+            <Button type="submit" text="Generate Passsword" />
           </div>
         </form>
         <div className="password-input">
-          <input type="text" value={password} readOnly></input>
-          <button onClick={handleCopyClick} disabled={password.length ? false : true}>
-            <i className="fa-regular fa-copy"></i>
+          <textarea value={password} readOnly ref={(textArea) => (textArea = textArea)} />
+          <button onClick={handleCopyClick} type="button" className="button">
+            Copy Text
           </button>
           <ToastContainer position="top-center" theme="dark" hideProgressBar autoClose={2000} />
         </div>

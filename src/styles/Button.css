@@ -1,0 +1,13 @@
+.button {
+  min-width: 100%;
+  min-height: 55px;
+  color: blue;
+  background: white;
+  transition: all 0.3s;
+  border-radius: 8px;
+}
+
+.button:hover {
+  background: blue;
+  color: white;
+}
