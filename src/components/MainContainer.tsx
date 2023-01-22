@@ -29,7 +29,8 @@ const MainContainer: React.FC = (): JSX.Element => {
     hasSymbols: false,
   };
 
-  const notification = () => toast.success("Copied to clipboard!");
+  const copyNotification = () => toast.success("Copied to clipboard!");
+  const invalidNotification = () => toast.error("You must select at least one password option");
 
   const [passwordOptions, setPasswordOptions] = useState<PasswordOptions>(INIT_OPTIONS);
   const [password, setPassword] = useState<string>("");
@@ -73,31 +74,37 @@ const MainContainer: React.FC = (): JSX.Element => {
     const { value } = e.target;
     setPasswordOptions({
       ...passwordOptions,
-      length: Number(e.target.value),
+      length: Number(value),
     });
   };
 
   const handleCopyClick = () => {
-    notification();
+    copyNotification();
     navigator.clipboard.writeText(password);
+  };
+
+  const handleGeneratePassword = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const validOptions = Object.values(passwordOptions).every((value) => value === true);
+    if (!validOptions) {
+      invalidNotification();
+    }
   };
 
   return (
     <div className="main-container">
       <div className="container">
-        <form className="form">
+        <form className="form" onSubmit={handleGeneratePassword}>
           <div>
-            <label>
-              Password Length:
-              <input
-                type="range"
-                value={passwordOptions.length}
-                min={12}
-                max={32}
-                onChange={handleLengthChange}
-              />
-              <span>{passwordOptions.length}</span>
-            </label>
+            <label>Password Length:</label>
+            <input
+              type="range"
+              value={passwordOptions.length}
+              min={12}
+              max={32}
+              onChange={handleLengthChange}
+            />
+            <span>{passwordOptions.length}</span>
           </div>
           <div className="inputdiv">
             <label>Lowercase letters</label>
@@ -132,7 +139,7 @@ const MainContainer: React.FC = (): JSX.Element => {
             />
           </div>
           <div>
-            <button onClick={updatePasswordCombinations}>Generate Password</button>
+            <button type="submit">Generate Password</button>
           </div>
         </form>
         <div className="password-input">
