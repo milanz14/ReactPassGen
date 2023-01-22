@@ -11,4 +11,4 @@ A react based password generator for all of your unique passwrd needs.
 
 # Live Deployment
 
-[React Password Generator](react-pass-gen.surge.sh)
+[React Password Generator](https://react-pass-gen.surge.sh/)
