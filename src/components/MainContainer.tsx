@@ -32,6 +32,7 @@ const MainContainer: React.FC = (): JSX.Element => {
   const copyNotification = () => toast.success("Copied to clipboard!");
   const validNotification = () => toast.success("Password Generated :)");
   const invalidNotification = () => toast.error("You must select at least one password option");
+  const noPassNotification = () => toast.error("Nothing to copy :(");
 
   const [passwordOptions, setPasswordOptions] = useState<PasswordOptions>(INIT_OPTIONS);
   const [password, setPassword] = useState<string>("");
@@ -73,6 +74,9 @@ const MainContainer: React.FC = (): JSX.Element => {
   };
 
   const handleCopyClick = () => {
+    if (!password) {
+      return noPassNotification();
+    }
     copyNotification();
     navigator.clipboard.writeText(password);
   };
