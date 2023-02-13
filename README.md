@@ -7,7 +7,7 @@ A react based password generator for all of your unique passwrd needs.
 - `git clone`
 - `cd password_generator`
 - `npm i`
-- `yarn dev`
+- `npm run dev`
 
 # Live Deployment
 
